@@ -1,5 +1,7 @@
 # auto-planting
-Github 自动种草
+> Github 自动种草
+
+------
 
 # python 2.7
 # pip install GitPython

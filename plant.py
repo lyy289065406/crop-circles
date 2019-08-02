@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# python 2.7
 # pip install GitPython
 # https://www.cnblogs.com/baiyangcao/p/gitpython.html
 
@@ -9,12 +10,13 @@
 # 1. now(datetime) to grassland 
 # 2. git push
 
-
+import os
 import time
 import git
 import uuid
 
-GRASSLAND = './grassland.dat'
+CUR_DIR = os.path.split(os.path.realpath(__file__))[0]
+GRASSLAND = '%s/grassland.dat' % CUR_DIR
 
 
 def main() :

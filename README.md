@@ -6,7 +6,7 @@ Github 自动种草
 # pip install GitPython
 vim /etc/crontab
 
-* * * * * root /home/exp/workspace/github/auto-planting/plant.py
+* * * * * root python /home/exp/workspace/github/auto-planting/plant.py >> /tmp/err.log 2>&1
 
 /var/log/cron
 

@@ -9,9 +9,9 @@ import uuid
 
 
 REPO_DIR = os.path.split(os.path.realpath(__file__))[0]     # 仓库目录
-GRASSLAND = '%s/grassland.dat' % REPO_DIR                   # 种草文件
-KEEP_SIZE = 1 * 1024 * 1024                                 # 种草文件大小，单位: M
-PROBABILITY = 80                                            # 种草概率
+GRASSLAND = '%s/grassland.dat' % REPO_DIR  # 种草文件
+KEEP_SIZE = 1 * 1024 * 1024   # 种草文件大小，单位: M
+PROBABILITY = 70              # 种草概率 目前每小时种1次，70%概率相当于每天 16次左右
 
 
 

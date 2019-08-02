@@ -32,35 +32,12 @@
 - 安装 GitPython 模块： `sudo pip install GitPython`
 - 安装 git 客户端
 - 在 Github Fork 这个仓库： [https://github.com/lyy289065406/auto-planting](https://github.com/lyy289065406/auto-planting)
-- 把仓库 checkout 到服务器本地： `git clone https://github.com/your_repo/auto-planting`
+- 把仓库 checkout 到服务器本地： `git clone https://github.com/{{your_repo}}/auto-planting`
 - checkout 的位置任意即可，如： `/tmp/auto-planting`
+- 设置使用 SSH 链接 Github （避免提交内容时要输入账密），详见 [这里](https://help.github.com/en/articles/connecting-to-github-with-ssh)
+- 若设置 SSH 后还要输入密码，则还需要把仓库的 https 协议改成 shh，详见 [这里](https://help.github.com/en/articles/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
+- 修改 crontab 配置文件，设置定时任务： `vim /etc/crontab`
+- 设置定时任务命令（每小时）： `0 * * * * root python /tmp/auto-planting/plant.py >> /tmp/err.log 2>&1`
+- 注意脚本位置需使用绝对路径，根据实际 checkout 的位置修改即可
+- 保存 crontab 配置文件后会自动生效，查看日志： `tail -10f /var/log/cron`
 
-
-
-# pip install GitPython
-# https://www.cnblogs.com/baiyangcao/p/gitpython.html
-
-
-< 16 浅绿
-< 32
-< 64 
->= 64 深绿
-
-# crontab -> this.py : 
-# 1. now(datetime) to grassland 
-# 2. git push
-
-# python 2.7
-# pip install GitPython
-vim /etc/crontab
-
-0 * * * * root python /home/exp/workspace/github/auto-planting/plant.py >> /tmp/err.log 2>&1
-
-/var/log/cron
-
-
-# 使用SSH公钥连接GITHUB
-https://help.github.com/en/articles/connecting-to-github-with-ssh
-
-# 添加SSH密钥后还要输入密码，则要把HTTPS改成SSH
-https://help.github.com/en/articles/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh

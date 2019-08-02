@@ -22,7 +22,7 @@
 - &lt; 64 次 ： 深绿
 - &gt;= 64 次 ： 墨绿
 
-![草地](https://raw.githubusercontent.com/lyy289065406/auto-planting/master/imgs/grassland.png?token=AECAHH4R4EIJIJ5H67CB4TS5IRM2S)
+![草地](https://raw.githubusercontent.com/lyy289065406/auto-planting/master/imgs/grassland.png)
 
 
 ## 使用方式

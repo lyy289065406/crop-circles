@@ -28,6 +28,7 @@ def plant() :
 
 def to_github() :
     repo = git.Repo(r'.')
+    repo.git.add(r'./grassland.dat')
     repo.git.commit(m='this is a test')
     repo.git.push()
 

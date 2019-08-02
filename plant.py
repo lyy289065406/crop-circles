@@ -15,8 +15,8 @@ import time
 import git
 import uuid
 
-CUR_DIR = os.path.split(os.path.realpath(__file__))[0]
-GRASSLAND = '%s/grassland.dat' % CUR_DIR
+REPO_DIR = os.path.split(os.path.realpath(__file__))[0]
+GRASSLAND = '%s/grassland.dat' % REPO_DIR
 
 
 def main() :
@@ -36,7 +36,7 @@ def to_plant(systime) :
 
 
 def to_github(systime) :
-    repo = git.Repo(r'.')
+    repo = git.Repo(REPO_DIR)
     repo.git.add(GRASSLAND)
     repo.git.commit(m='[%s] %s' % (systime, uuid.uuid1()))
     repo.git.push()

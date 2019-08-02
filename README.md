@@ -1,6 +1,14 @@
 # auto-planting
 Github 自动种草
 
+# python 2.7
+# pip install GitPython
+# https://www.cnblogs.com/baiyangcao/p/gitpython.html
+
+
+# crontab -> this.py : 
+# 1. now(datetime) to grassland 
+# 2. git push
 
 # python 2.7
 # pip install GitPython

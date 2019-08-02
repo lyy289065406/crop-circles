@@ -1,12 +1,25 @@
 # auto-planting
 Github 自动种草
 
+# python 2.7
+# pip install GitPython
+# https://www.cnblogs.com/baiyangcao/p/gitpython.html
+
+
+< 16 浅绿
+< 32
+< 64 
+>= 64 深绿
+
+# crontab -> this.py : 
+# 1. now(datetime) to grassland 
+# 2. git push
 
 # python 2.7
 # pip install GitPython
 vim /etc/crontab
 
-* * * * * root /home/exp/workspace/github/auto-planting/plant.py
+0 * * * * root python /home/exp/workspace/github/auto-planting/plant.py >> /tmp/err.log 2>&1
 
 /var/log/cron
 

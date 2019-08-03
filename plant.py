@@ -48,7 +48,7 @@ def is_bingo() :
 def to_github(systime) :
     repo = git.Repo(REPO_DIR)
     repo.git.add(GRASSLAND)
-    repo.git.commit(m='[%s] %s' % (systime, uuid.uuid1()))
+    repo.git.commit(m='"[%s] %s"' % (systime, uuid.uuid1()))
     repo.git.push()
 
 

@@ -16,9 +16,10 @@ PROBABILITY = 70              # 种草概率: 默认每小时种1次，70%概率
 
 
 def main() :
-    now = get_systime()
-    to_plant(now)
-    to_github(now)
+    if is_bingo() :
+        now = get_systime()
+        to_plant(now)
+        to_github(now)
 
 
 # 获取当前系统时间
@@ -29,14 +30,13 @@ def get_systime() :
 
 # 种草
 def to_plant(systime) :
-    if is_bingo() :
-        fsize = 0
-        if os.path.exists(GRASSLAND) :
-            fsize = os.path.getsize(GRASSLAND)
-        mode = 'a+' if KEEP_SIZE > fsize else 'w+'
+    fsize = 0
+    if os.path.exists(GRASSLAND) :
+        fsize = os.path.getsize(GRASSLAND)
+    mode = 'a+' if KEEP_SIZE > fsize else 'w+'
 
-        with open(GRASSLAND, mode) as file :
-            file.write('%s\n' % systime)
+    with open(GRASSLAND, mode) as file :
+        file.write('%s\n' % systime)
 
 
 # 是否命中种草概率

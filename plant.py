@@ -11,7 +11,7 @@ import uuid
 REPO_DIR = os.path.split(os.path.realpath(__file__))[0]     # 仓库目录
 GRASSLAND = '%s/grassland.dat' % REPO_DIR  # 种草文件
 KEEP_SIZE = 1 * 1024 * 1024   # 种草文件大小，单位: M
-PROBABILITY = 70              # 种草概率: 默认每小时种1次，70%概率相当于每天 16 次左右
+PROBABILITY = 100             # 种草概率: 默认每小时种1次，每小时下降 5% ，每天凌晨重置 
 
 
 
@@ -41,7 +41,9 @@ def to_plant(systime) :
 
 # 是否命中种草概率
 def is_bingo() :
-    return random.randint(0,100) <= PROBABILITY
+    hour = time.localtime().tm_hour
+    cur_rate = PROBABILITY - hour * 5   # 每小时下降 5%
+    return random.randint(0,100) <= cur_rate
 
 
 # 提交到 github
@@ -55,4 +57,5 @@ def to_github(systime) :
 
 if __name__ == '__main__' :
     main()
+
 

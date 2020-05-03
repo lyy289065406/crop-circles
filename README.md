@@ -24,6 +24,8 @@
 
 ![草地](https://github.com/lyy289065406/auto-planting/blob/master/imgs/grassland.png)
 
+> TODO： 用一年时间在 Github 上画一副像素画
+
 
 ## 使用方式
 

@@ -1,0 +1,42 @@
+name: Automatically planting
+on: push
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out repo
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 2.7
+    - uses: actions/cache@v2
+      name: Configure pip caching
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install -r requirements.txt
+
+    - name: planting
+      run: |-
+        python plant.py
+
+    # readme-bot 是 Github runner 的固定账号，不用改
+    - name: Commit and push Github page (if changed)
+      run: |-
+        git diff
+        git config --global user.email "readme-bot@example.com"
+        git config --global user.name "README-bot"
+        git add -A
+        git commit -m "Updated content" || exit 0
+        git push
+

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import random
 import time
 import git
@@ -15,11 +16,13 @@ PROBABILITY = 100             # 种草概率: 默认每小时种1次，每小时
 
 
 
-def main() :
+def main(auto_commit) :
     if is_bingo() :
         now = get_systime()
         to_plant(now)
-        to_github(now)
+
+        if auto_commit :
+            to_github(now)
 
 
 # 获取当前系统时间
@@ -54,8 +57,24 @@ def to_github(systime) :
     repo.git.push()
 
 
+# 获取命令行参数
+def get_sys_args(sys_args) :
+    auto_commit = False
+
+    idx = 1
+    size = len(sys_args)
+    while idx < size :
+        try :
+            if sys_args[idx] == '-ac' :
+                auto_commit = True
+
+        except :
+            pass
+        idx += 1
+    return auto_commit
+
 
 if __name__ == '__main__' :
-    main()
+    main(*get_sys_args(sys.argv))
 
 

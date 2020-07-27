@@ -71,7 +71,7 @@ def get_sys_args(sys_args) :
         except :
             pass
         idx += 1
-    return auto_commit
+    return ( auto_commit )
 
 
 if __name__ == '__main__' :

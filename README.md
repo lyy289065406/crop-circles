@@ -27,9 +27,24 @@
 > TODO： 用一年时间在 Github 上画一副像素画
 
 
-## 使用方式
+## 开发者部署
 
-- 任意找一台 Linux 服务器
+<details>
+<summary><b>无服务器方式</b></summary>
+<br/>
+
+本项目已配置 [Github workflow](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需 [Fork 本项目](https://github.com/lyy289065406/auto-planting) 到你的代码仓库即可实现部署。
+
+> 尔后程序便会每小时执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）
+
+</details>
+
+
+<details>
+<summary><b>有服务器方式</b></summary>
+<br/>
+
+- 任意找一台 Linux 服务器（阿里云、腾讯云等）
 - 安装 python 2.7
 - 安装 GitPython 模块： `sudo pip install GitPython`
 - 安装 git 客户端
@@ -43,6 +58,7 @@
 - 注意脚本位置需使用绝对路径，根据实际 checkout 的位置修改即可
 - 保存 crontab 配置文件后会自动生效，查看日志： `tail -10f /var/log/cron`
 
+</details>
 
 ## 版权声明
 

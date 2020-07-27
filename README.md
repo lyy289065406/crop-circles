@@ -30,7 +30,7 @@
 ## 开发者部署
 
 <details>
-<summary><b>无服务器方式</b></summary>
+<summary><b>无服务器方式（推荐）</b></summary>
 <br/>
 
 本项目已配置 [Github workflow](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需 [Fork 本项目](https://github.com/lyy289065406/auto-planting) 到你的代码仓库即可实现部署。
@@ -54,7 +54,7 @@
 - 设置使用 SSH 与 Github 连接（避免提交内容时要输入账密），详见 [这里](https://help.github.com/en/articles/connecting-to-github-with-ssh)
 - 若设置 SSH 后还要输入密码才能提交，则还需要把仓库的 https 协议改成 ssh，详见 [这里](https://help.github.com/en/articles/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
 - 修改 crontab 配置文件，设置定时任务： `vim /etc/crontab`
-- 设置定时任务命令（每小时）： `0 * * * * root python /tmp/auto-planting/plant.py >> /tmp/err.log 2>&1`
+- 设置定时任务命令（每小时）： `0 * * * * root python /tmp/auto-planting/plant.py -ac >> /tmp/err.log 2>&1`
 - 注意脚本位置需使用绝对路径，根据实际 checkout 的位置修改即可
 - 保存 crontab 配置文件后会自动生效，查看日志： `tail -10f /var/log/cron`
 

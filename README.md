@@ -33,7 +33,10 @@
 <summary><b>无服务器方式（推荐）</b></summary>
 <br/>
 
-本项目已配置 [Github workflow](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需 [Fork 本项目](https://github.com/lyy289065406/auto-planting) 到你的代码仓库即可实现部署。
+本项目已配置 [Github workflow](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需轻松两步即可实现部署：
+
+- [Fork 本项目](https://github.com/lyy289065406/auto-planting) 到你的代码仓库
+- 启用 `Actions` 功能
 
 > 尔后程序便会每小时执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）
 

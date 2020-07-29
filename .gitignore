@@ -1,0 +1,4 @@
+log/*
+*.py[cod]
+*$py.class
+

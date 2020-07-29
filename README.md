@@ -25,6 +25,7 @@
 ![草地](https://github.com/lyy289065406/auto-planting/blob/master/imgs/grassland.png)
 
 > TODO： 用一年时间在 Github 上画一副像素画
+> README 显示绘制进度条: https://github.com/lyy289065406/anuraghazra, https://github.com/lyy289065406/gautamkrishnar/edit/master/README.md
 
 
 ## 开发者部署

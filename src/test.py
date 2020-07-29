@@ -1,26 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+# from src.letter import *
+# FIXME
+from letter import *
+
 WHITE = '□'
 BLACK = '■'
 
-A = [
-    [ 0, 0, 0, 0, 0, 0, 0 ] , 
-    [ 0, 0, 1, 1, 1, 0, 0 ] , 
-    [ 0, 1, 0, 0, 0, 1, 0 ] , 
-    [ 0, 1, 0, 0, 0, 1, 0 ] , 
-    [ 0, 1, 1, 1, 1, 1, 0 ] , 
-    [ 0, 1, 0, 0, 0, 1, 0 ] , 
-    [ 0, 0, 0, 0, 0, 0, 0 ]
-]
 
 
 def to_print(matrix) :
-    for i in A :
+    for i in matrix :
         for j in i :
             print('%s ' % (WHITE if j == 0 else BLACK), end='')
         print()
 
 
 if __name__ == '__main__' :
-    to_print(A)
+    to_print(a)

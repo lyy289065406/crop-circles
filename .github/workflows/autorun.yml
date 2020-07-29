@@ -1,5 +1,11 @@
 name: Automatically planting
 on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    branches:
+      - master
   schedule:
     - cron:  '0 * * * *'
 

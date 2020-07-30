@@ -19,4 +19,4 @@ def to_print(matrix) :
 
 
 if __name__ == '__main__' :
-    to_print(a)
+    to_print(R)

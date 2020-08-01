@@ -9,8 +9,9 @@
 
 import sys
 import collections
+from src.cfg.dot_matrix import *
 from src.utils import log
-from src.ch_dot_matrix import *
+
 
 
 CANVAS_WIDTH = 53
@@ -18,7 +19,7 @@ CANVAS_HEIGHT = 7
 WHITE = '□'
 BLACK = '■'
 
-dicts = collections.OrderedDict([
+DICTS = collections.OrderedDict([
     ('A', A), ('B', B), ('C', C), ('D', D), ('E', E), ('F', F), ('G', G), ('H', H), ('I', I), ('J', J), 
     ('K', K), ('L', L), ('M', M), ('N', N), ('O', O), ('P', P), ('Q', Q), ('R', R), ('S', S), ('T', T), 
     ('U', U), ('V', V), ('W', W), ('X', X), ('Y', Y), ('Z', Z), 
@@ -59,7 +60,7 @@ def help_info():
 
 
 def show() :
-    for key, val in dicts.items() :
+    for key, val in DICTS.items() :
         log.info("character = '%s', width = %i" % (key, len(val[0])))
 
 

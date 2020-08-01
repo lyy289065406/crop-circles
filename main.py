@@ -8,7 +8,44 @@
 # -----------------------------------------------
 
 import sys
+import collections
 from src.utils import log
+from src.ch_dot_matrix import *
+
+
+CANVAS_WIDTH = 53
+CANVAS_HEIGHT = 7
+WHITE = '□'
+BLACK = '■'
+
+dicts = collections.OrderedDict([
+    ('A', A), ('B', B), ('C', C), ('D', D), ('E', E), ('F', F), ('G', G), ('H', H), ('I', I), ('J', J), 
+    ('K', K), ('L', L), ('M', M), ('N', N), ('O', O), ('P', P), ('Q', Q), ('R', R), ('S', S), ('T', T), 
+    ('U', U), ('V', V), ('W', W), ('X', X), ('Y', Y), ('Z', Z), 
+    ('0', zero), ('1', one), ('2', two), ('3', three), ('4', four), ('5', five), 
+    ('6', six), ('7', seven), ('8', eight), ('9', night), 
+    (' ', space), ('·', point), ('.', period), (',', comma), (';', semicolon), (',', colon), 
+    ('?', question), ('!', exclamation), ('$', doller), ('^', power), ('*', star), 
+    ('=', equal), ('+', plus), ('-', minus), ('_', underline), ('\'', apos), 
+    ('|', vertical), ('/', slash), ('\\', backslash), 
+    ('(', l_parentheses), (')', r_parentheses), 
+    ('[', l_brackets), (']', r_brackets), 
+    ('{', l_braces), ('}', r_braces), ('<', l_title), ('>', r_title)
+])
+
+
+
+def main(help, view, logo, start_time) :
+    if help :
+        log.info(help_info())
+
+    elif view :
+        show()
+
+    else :
+        pass
+
+
 
 
 def help_info():
@@ -20,16 +57,10 @@ def help_info():
     -v                打印支持绘制的字符
 '''
 
-def main(help, view, logo, start_time) :
-    if help :
-        log.info(help_info())
 
-    elif view :
-        pass
-
-    else :
-        pass
-
+def show() :
+    for key, val in dicts.items() :
+        log.info("character = '%s', width = %i" % (key, len(val[0])))
 
 
 def get_sys_args(sys_args) :

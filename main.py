@@ -11,15 +11,13 @@ import sys
 import collections
 from src.cfg.dot_matrix import *
 from src.utils import log
-
+from src.utils import canvas
 
 
 CANVAS_WIDTH = 53
 CANVAS_HEIGHT = 7
-WHITE = '□'
-BLACK = '■'
 
-DICTS = collections.OrderedDict([
+DOT_MATRIX = collections.OrderedDict([
     ('A', A), ('B', B), ('C', C), ('D', D), ('E', E), ('F', F), ('G', G), ('H', H), ('I', I), ('J', J), 
     ('K', K), ('L', L), ('M', M), ('N', N), ('O', O), ('P', P), ('Q', Q), ('R', R), ('S', S), ('T', T), 
     ('U', U), ('V', V), ('W', W), ('X', X), ('Y', Y), ('Z', Z), 
@@ -44,8 +42,9 @@ def main(help, view, logo, start_time) :
         show()
 
     else :
-        pass
-
+        logo_chs = to_chs(logo)
+        draw_in_local(logo_chs)
+        draw_in_github(logo_chs, start_time)
 
 
 
@@ -59,9 +58,41 @@ def help_info():
 '''
 
 
+
 def show() :
     for key, val in DICTS.items() :
         log.info("character = '%s', width = %i" % (key, len(val[0])))
+
+
+
+def to_chs(logo) :
+    logo_chs = []
+    width = 0
+    chs = list(logo.upper())
+    for ch in chs :
+        dm = DOT_MATRIX.get(ch)
+        if dm :
+            if width + len(dm[0]) >= CANVAS_WIDTH :
+                continue
+            else :
+                logo_chs.append(ch)
+                width += len(dm[0])
+    return logo_chs
+
+
+
+def draw_in_local(logo_chs) :
+    log.info('LOGO: %s' % ''.join(logo_chs))
+    lc = canvas.LocalCanvas(CANVAS_HEIGHT, CANVAS_WIDTH)
+    lc.draw_canvas(DOT_MATRIX, logo_chs)
+    log.info('Show in Local:')
+    log.info(lc.canvas_to_str())
+
+
+
+def draw_in_github(logo_chs, start_time) :
+    pass
+
 
 
 def get_sys_args(sys_args) :
@@ -91,6 +122,7 @@ def get_sys_args(sys_args) :
             pass
         idx += 1
     return help, view, logo, start_time
+
 
 
 if __name__ == '__main__':

@@ -8,7 +8,6 @@
 # -----------------------------------------------
 
 import sys
-import collections
 from src.cfg.dot_matrix import *
 from src.utils import log
 from src.utils import canvas
@@ -16,21 +15,6 @@ from src.utils import canvas
 
 CANVAS_WIDTH = 53
 CANVAS_HEIGHT = 7
-
-DOT_MATRIX = collections.OrderedDict([
-    ('A', A), ('B', B), ('C', C), ('D', D), ('E', E), ('F', F), ('G', G), ('H', H), ('I', I), ('J', J), 
-    ('K', K), ('L', L), ('M', M), ('N', N), ('O', O), ('P', P), ('Q', Q), ('R', R), ('S', S), ('T', T), 
-    ('U', U), ('V', V), ('W', W), ('X', X), ('Y', Y), ('Z', Z), 
-    ('0', zero), ('1', one), ('2', two), ('3', three), ('4', four), ('5', five), 
-    ('6', six), ('7', seven), ('8', eight), ('9', night), 
-    (' ', space), ('·', point), ('.', period), (',', comma), (';', semicolon), (',', colon), 
-    ('?', question), ('!', exclamation), ('$', doller), ('^', power), ('*', star), 
-    ('=', equal), ('+', plus), ('-', minus), ('_', underline), ('\'', apos), 
-    ('|', vertical), ('/', slash), ('\\', backslash), 
-    ('(', l_parentheses), (')', r_parentheses), 
-    ('[', l_brackets), (']', r_brackets), 
-    ('{', l_braces), ('}', r_braces), ('<', l_title), ('>', r_title)
-])
 
 
 
@@ -84,7 +68,7 @@ def to_chs(logo) :
 def draw_in_local(logo_chs) :
     log.info('LOGO: %s' % ''.join(logo_chs))
     lc = canvas.LocalCanvas(CANVAS_HEIGHT, CANVAS_WIDTH)
-    lc.draw_canvas(DOT_MATRIX, logo_chs)
+    lc.draw_canvas(logo_chs, DOT_MATRIX)
     log.info('Show in Local:')
     log.info(lc.canvas_to_str())
 
@@ -93,6 +77,18 @@ def draw_in_local(logo_chs) :
 def draw_in_github(logo_chs, start_time) :
     pass
 
+
+
+import calendar
+import datetime
+
+def get_next_weekday(target=calendar.SUNDAY):
+    today = datetime.date.today()
+    oneday = datetime.timedelta(days = 1)
+    while today.weekday() != target:
+        today += oneday
+    next = today.strftime('%Y%m%d')
+    return next
 
 
 def get_sys_args(sys_args) :
@@ -128,5 +124,7 @@ def get_sys_args(sys_args) :
 if __name__ == '__main__':
     log.init()
     main(*get_sys_args(sys.argv))
+
+    print(get_next_weekday(calendar.MONDAY))
 
 

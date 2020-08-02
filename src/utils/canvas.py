@@ -28,7 +28,7 @@ class LocalCanvas :
         return canvas
 
 
-    def draw_canvas(self, dot_matrix, logo_chs):
+    def draw_canvas(self, logo_chs, dot_matrix):
         offset = 0
         for ch in logo_chs :
             dm = dot_matrix.get(ch)
@@ -45,3 +45,9 @@ class LocalCanvas :
             rows.append(' '.join(row))
         return '\n'.join(rows)
 
+
+
+class GithubCanvas :
+
+    def __init__(self) :
+        pass

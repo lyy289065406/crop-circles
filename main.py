@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # @Author : EXP
 # @Time   : 2020/08/01 13:14
-# @File   : log.py
 # -----------------------------------------------
 # 用一年时间在 Github 画画
 # -----------------------------------------------
@@ -79,16 +78,8 @@ def draw_in_github(logo_chs, start_time) :
 
 
 
-import calendar
-import datetime
 
-def get_next_weekday(target=calendar.SUNDAY):
-    today = datetime.date.today()
-    oneday = datetime.timedelta(days = 1)
-    while today.weekday() != target:
-        today += oneday
-    next = today.strftime('%Y%m%d')
-    return next
+
 
 
 def get_sys_args(sys_args) :

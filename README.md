@@ -34,7 +34,7 @@
 <summary><b>无服务器方式</b></summary>
 <br/>
 
-本项目已配置 [Github workflow](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需轻松两步即可实现部署：
+本项目已配置 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需轻松两步即可实现部署：
 
 - [Fork 本项目](https://github.com/lyy289065406/auto-planting) 到你的代码仓库
 - 启用 Settings --> Actions 功能

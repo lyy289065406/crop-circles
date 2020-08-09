@@ -34,7 +34,7 @@ C
 ## 开发者部署
 
 <details>
-<summary><b>无服务器方式</b></summary>
+<summary><b>无服务器方式（推荐）</b></summary>
 <br/>
 
 本项目已配置 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需轻松两步即可实现部署：
@@ -48,7 +48,7 @@ C
 
 
 <details>
-<summary><b>有服务器方式（推荐）</b></summary>
+<summary><b>有服务器方式</b></summary>
 <br/>
 
 - 任意找一台 Linux 服务器（阿里云、腾讯云等）

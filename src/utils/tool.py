@@ -8,6 +8,7 @@
 
 import calendar
 import datetime
+import hashlib
 from src.env.cfg import *
 from src.env.dot_matrix import *
 
@@ -34,23 +35,46 @@ def format(logo, canvas_width=CANVAS_WIDTH, dot_matrix=DOT_MATRIX) :
     return ''.join(logo_chs)
 
 
+def to_md5(string) :
+    """
+    :param string: 目标字符串
+    :return: MD5
+    """
+    hl = hashlib.md5()
+    hl.update(string.encode(encoding=CHARSET))
+    return hl.hexdigest()
 
-def get_next_weekday(target=calendar.SUNDAY) :
+
+def get_next_weekday(target_weekday=calendar.SUNDAY) :
+    """
+    :param target: 目标的周几（周日、周一、周二、......）
+    :return: 从今天到下一个周几之间的天数
+    """
+    days = 0
     nextday = datetime.date.today()
     delta = datetime.timedelta(days = 1)
-
-    cnt = 0
-    while nextday.weekday() != target:
+    while nextday.weekday() != target_weekday:
         nextday += delta
-        cnt += 1
-    # next = nextday.strftime('%Y%m%d')
-    # return nextday
-    return cnt
+        days += 1
+    return days
 
 
-def get_next_day(next=1) :
+
+def get_after_day(after_days=0) :
+    """
+    :param after_days: N 天后
+    :return: N 天后的日期
+    """
     today = datetime.date.today()
-    delta = datetime.timedelta(days = next)
-    nextday = today + delta
-    return nextday
+    delta = datetime.timedelta(days = after_days)
+    afterday = today + delta
+    return afterday
+
+
+
+def date_to_str(date) :
+    """
+    :return: 格式化日期
+    """
+    return date.strftime('%Y%m%d')
 

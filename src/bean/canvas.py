@@ -13,6 +13,9 @@ from src.env.dot_matrix import *
 
 
 class LocalCanvas :
+    '''
+    本地画布
+    '''
 
     def __init__(self, logo, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, backgroup=WHITE, foreground=BLACK) :
         """
@@ -48,7 +51,6 @@ class LocalCanvas :
         :param logo: 期望绘制的 logo 字符串
         """
         logo_chs = list(logo)
-        print(logo_chs)
         offset = 0
         for ch in logo_chs :
             dm = DOT_MATRIX.get(ch)
@@ -77,6 +79,19 @@ class LocalCanvas :
 
 
 class GithubCanvas :
+    '''
+    Github 画布
+    '''
+
+    def __init__(self) :
+        pass
+
+
+
+class HtmlCanvas :
+    '''
+    HTML 画布
+    '''
 
     def __init__(self) :
         pass

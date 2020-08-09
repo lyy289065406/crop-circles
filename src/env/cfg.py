@@ -8,6 +8,8 @@
 import os
 
 PRJ_DIR = os.path.dirname(os.path.abspath(__file__)).replace(r'/src/env', '').replace(r'\src\env', '')
+CACHE_DIR = '%s/cache' % PRJ_DIR
+SAVE_PREFIX = 'save_'
 CHARSET = 'utf-8'
 
 

@@ -11,11 +11,9 @@
 
 ## 脚本介绍
 
-用一年时间在 Github Profile 画一幅像素画：
+用一年时间在 Github Profile 画一幅像素画（[查看进度](https://lyy289065406.github.io/crop-circles/)）：
 
 ![草地](imgs/grassland.png)
-
-> 查看绘画进度： [https://lyy289065406.github.io/crop-circles/](https://lyy289065406.github.io/crop-circles/)
 
 
 ## 实现原理
@@ -127,7 +125,7 @@ C
 | `+` | `3` | `-` | `3` |
 | `_` | `3` | `|` | `3` |
 | `\` | `3` | `/` | `3` |
-| `'` | `3` | - | - |
+| `'` | `3` |   |   |
 
 </details>
 

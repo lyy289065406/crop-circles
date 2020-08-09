@@ -127,7 +127,7 @@ class HtmlCanvas(Canvas) :
                     color = COLOR_1
                 else :
                     color = COLOR_32
-                self.canvas[r][c] = '<i style="color:%s" class="fa fa-square"></i>' % color
+                self.canvas[r][c] = '<i style="color:%s" class="tooltip fa fa-square"><span class="tooltiptext">%s</span></i>' % (color, key)
 
         _canvas = []
         for line in self.canvas :

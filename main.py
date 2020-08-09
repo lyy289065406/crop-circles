@@ -16,7 +16,7 @@ from src.utils import log
 from src.utils import tool
 
 
-def main(help, view, logo) :
+def main(help, view, auto_commit, logo) :
     if help :
         log.info(help_info())
 
@@ -24,26 +24,8 @@ def main(help, view, logo) :
         log.info(ch_info())
 
     else :
-        # 格式化 logo
-        logo = tool.format(logo)
-        log.info('LOGO: %s' % logo)
-
-        # 预览画布
-        lc = LocalCanvas(logo)
-        log.info('Preview in Canvas: %s' % lc.to_str())
-
-        # 获取画布绘制进度
-        arch = Archiver(logo)
-        if not arch.load() :            # 加载存档文件
-            arch.to_progress(lc.canvas) # 生成新的存档文件
-
-        # 更新今天的进度
-        if arch.check_today() :
-            arch.update_today()
-            arch.save()
-            arch.check_finish()
-            git_commit(arch.savepath)    # 提交变更以累积绘画      
-
+        draw(logo, auto_commit)
+        
 
 
 def help_info():
@@ -52,6 +34,7 @@ def help_info():
     -logo <string>    期望绘制的 LOGO 字符画， 要求总宽度 <= 53
                       （其中 A-Z 0-9 宽度为 7 ，标点符号宽度为 3）
     -v                打印支持绘制的字符
+    -ac               自动提交变更到 Github
 '''
 
 
@@ -67,9 +50,45 @@ def ch_info() :
 
 
 
+def draw(logo, auto_commit) :
+    """
+    在 Github 绘画
+    :param logo: 合法的 logo 字符串
+    :param auto_commit: 自动提交到 Github
+    """
+    # 格式化 logo
+    logo = tool.format(logo)
+    log.info('LOGO: %s' % logo)
+
+    # 预览画布
+    lc = LocalCanvas(logo)
+    log.info('Preview in Canvas: %s' % lc.to_str())
+
+    # 获取画布绘制进度
+    arch = Archiver(logo)
+    if not arch.load() :            # 加载存档文件
+        arch.to_progress(lc.canvas) # 生成新的存档文件
+
+    # 更新今天的进度
+    if arch.check_today() :
+        arch.update_today()
+        arch.save()
+        arch.check_finish()
+
+    # 提交变更以累积性绘画      
+    if auto_commit :
+        git_commit(arch.savepath)
+
+
+
 def get_sys_args(sys_args) :
+    """
+    获取脚本入参
+    :param sys_args: 脚本参数列表
+    """
     help = False
     view = False
+    auto_commit = False
     logo = DEFAULT_LOGO
 
     idx = 1
@@ -82,13 +101,16 @@ def get_sys_args(sys_args) :
             elif sys_args[idx] == '-v' :
                 view = True
 
+            elif sys_args[idx] == '-ac' :
+                auto_commit = True
+
             elif sys_args[idx] == '-logo' :
                 idx += 1
                 logo = sys_args[idx]
         except :
             pass
         idx += 1
-    return help, view, logo
+    return help, view, auto_commit, logo
 
 
 

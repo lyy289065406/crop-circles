@@ -34,9 +34,9 @@ jobs:
       run: |
         python -m pip install -r requirements.txt
 
-    - name: planting
+    - name: draw
       run: |-
-        python plant.py
+        python main.py
 
     # readme-bot 是 Github runner 的固定账号，不用改
     - name: Commit and push Github page (if changed)

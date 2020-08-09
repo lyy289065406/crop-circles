@@ -6,11 +6,16 @@
 # 辅助工具
 # -----------------------------------------------
 
+import git
+import uuid
 import calendar
 import datetime
+import time
 import hashlib
+
 from src.env.cfg import *
 from src.env.dot_matrix import *
+
 
 
 def format(logo, canvas_width=CANVAS_WIDTH, dot_matrix=DOT_MATRIX) :
@@ -47,7 +52,7 @@ def to_md5(string) :
 
 def get_next_weekday(target_weekday=calendar.SUNDAY) :
     """
-    :param target: 目标的周几（周日、周一、周二、......）
+    :param target_weekday: 目标的周几（周日、周一、周二、......）
     :return: 从今天到下一个周几之间的天数
     """
     days = 0
@@ -77,4 +82,23 @@ def date_to_str(date) :
     :return: 格式化日期
     """
     return date.strftime('%Y%m%d')
+
+
+def get_systime() :
+    """
+    :return: 获取当前系统时间
+    """
+    now = time.localtime(time.time())
+    return time.strftime("%Y-%m-%d %H:%M:%S", now)
+
+
+def git_commit(change_file) :
+    """
+    提交变更文件
+    :param change_file: 变更文件
+    """
+    repo = git.Repo(PRJ_DIR)
+    repo.git.add(change_file)
+    repo.git.commit(m='"[%s] %s"' % (get_systime(), uuid.uuid1()))
+    repo.git.push()
 

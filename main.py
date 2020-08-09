@@ -9,6 +9,7 @@
 import sys
 from src.bean.archiver import *
 from src.bean.canvas import *
+from src.bean.commit import *
 from src.env.cfg import *
 from src.env.dot_matrix import *
 from src.utils import log
@@ -23,22 +24,25 @@ def main(help, view, logo) :
         log.info(ch_info())
 
     else :
+        # 格式化 logo
         logo = tool.format(logo)
         log.info('LOGO: %s' % logo)
 
+        # 预览画布
         lc = LocalCanvas(logo)
         log.info('Preview in Canvas: %s' % lc.to_str())
 
+        # 获取画布绘制进度
         arch = Archiver(logo)
         if not arch.load() :            # 加载存档文件
             arch.to_progress(lc.canvas) # 生成新的存档文件
 
-
-        # TODO 提交
-        draw_in_github(logo)
-
-        arch.update()
-        arch.save()
+        # 更新今天的进度
+        if arch.check_today() :
+            arch.update_today()
+            arch.save()
+            arch.check_finish()
+            git_commit(arch.savepath)    # 提交变更以累积绘画      
 
 
 
@@ -60,16 +64,6 @@ def ch_info() :
     for key, val in DOT_MATRIX.items() :
         infos.append("character = '%s', width = %i" % (key, len(val[0])))
     return '\n'.join(infos)
-
-
-
-
-def draw_in_github(logo_chs) :
-    pass
-
-
-
-
 
 
 

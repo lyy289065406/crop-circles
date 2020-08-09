@@ -3,7 +3,7 @@
 # @Author : EXP
 # @Time   : 2020/08/01 13:14
 # -----------------------------------------------
-# 
+# 存档器
 # -----------------------------------------------
 
 import os
@@ -57,15 +57,53 @@ class Archiver :
                 days += 1
 
 
-    def update(self, date=datetime.date.today()) :
+    def _get_today_progress(self) :
         """
-        在内存更新指定日期的 commit 进度
-        :param day: 指定日期，格式形如 20200520
+        获取今天的 commit 进度
+        :return: 是否需要执行 commit
         """
-        sdate = date_to_str(date)
-        dp = self.dps[sdate]
+        sdate = date_to_str(datetime.date.today())
+        return self.dps[sdate]
+
+
+    def check_today(self) :
+        """
+        检查今天的 commit 进度
+        :return: 是否需要执行 commit
+        """
+        dp = self._get_today_progress()
+        return dp is not None and (dp.cnt < dp.commit)
+
+
+    def update_today(self) :
+        """
+        更新今天的 commit 进度
+        """
+        dp = self._get_today_progress()
         if dp is not None :
             dp.update()
+
+
+    def check_finish(self) :
+        """
+        检查是否已完成绘图（完成则删除存档文件）
+        """
+        cur_dp = self._get_today_progress()
+        last_day = list(self.dps.keys())[-1]
+        if cur_dp is not None and (cur_dp.date == last_day) and (cur_dp.cnt >= cur_dp.commit) :
+            os.remove(self.savepath)
+
+
+    def save(self) :
+        """
+        把内存进度写入文件
+        """
+        progress = []
+        for key, val in self.dps.items() :
+            progress.append(val.to_str())
+
+        with open(self.savepath, 'w+') as file :
+            file.write('\n'.join(progress))
 
 
     def load(self) :
@@ -94,19 +132,6 @@ class Archiver :
         for filename in filenames :
             if filename.startswith(SAVE_PREFIX) and not self.savepath.endswith(filename) :
                 os.remove('%s/%s' % (CACHE_DIR, filename))
-                    
-
-    def save(self) :
-        """
-        把内存进度写入文件
-        """
-        progress = []
-        for key, val in self.dps.items() :
-            progress.append(val.to_str())
-
-        with open(self.savepath, 'w+') as file :
-            file.write('\n'.join(progress))
-        
 
 
 
@@ -128,8 +153,7 @@ class DateProgress :
 
 
     def update(self) :
-        if self.cnt < self.commit :
-            self.cnt += 1
+        self.cnt += 1
 
 
     def to_str(self) :

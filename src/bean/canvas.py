@@ -3,7 +3,7 @@
 # @Author : EXP
 # @Time   : 2020/08/01 13:14
 # -----------------------------------------------
-# LOGO 绘制
+# LOGO 绘制器
 # -----------------------------------------------
 
 
@@ -75,16 +75,6 @@ class LocalCanvas :
     def __str__(self):
         return self.to_str()
 
-
-
-
-class GithubCanvas :
-    '''
-    Github 画布
-    '''
-
-    def __init__(self) :
-        pass
 
 
 

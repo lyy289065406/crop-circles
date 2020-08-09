@@ -60,7 +60,8 @@ def draw(logo, auto_commit) :
     log.info('LOGO: %s' % logo)
 
     # 预览画布
-    lc = LocalCanvas(logo)
+    lc = LocalCanvas()
+    lc.draw(logo)
     log.info('Preview in Canvas: %s' % lc.to_str())
 
     # 获取画布绘制进度

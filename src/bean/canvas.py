@@ -7,6 +7,7 @@
 # -----------------------------------------------
 
 
+import time
 from src.bean.archiver import *
 from src.env.cfg import *
 from src.env.dot_matrix import *
@@ -83,5 +84,55 @@ class HtmlCanvas :
     HTML 画布
     '''
 
-    def __init__(self) :
-        pass
+    def __init__(self, archiver) :
+        self.arch = archiver
+
+    
+    def _read_tpl(self) :
+        with open(HTML_TPL, 'r') as file :
+            tpl = file.read()
+        return tpl
+    
+
+    def _to_canvas(self) :
+        canvas = []
+        cnt = 0
+        today = self.arch._get_today_progress()
+        for key, val in self.arch.dps.items() :
+            if today is not None and today.date == key :
+                color = '#FF0000'
+            elif val.commit <= COMMIT_1 :
+                color = '#9be9a8'
+            else :
+                color = '#216e39'
+
+            canvas.append('<i style="color:%s" class="fa fa-square"></i>' % color)
+            cnt += 1
+            if cnt == CANVAS_WIDTH :
+                cnt = 0
+                canvas.append('<br/>')
+
+        return ' '.join(canvas)
+                
+
+    def _to_html(self) :
+        today = self.arch._get_today_progress()
+        tpl = self._read_tpl()
+        html = tpl % {
+            'datetime': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+            'logo': self.arch.logo,
+            'last_commit_date': today.date,
+            'commit_cnt': today.cnt,
+            'commit_total': today.commit,
+            'canvas': self._to_canvas()
+        }
+        return html
+
+    
+    def to_page(self) :
+        html = self._to_html()
+        with open(HTML_PATH, 'w+') as file :
+            file.write(html)
+
+#  <br/> <i class="fa fa-square-o"></i> <i class="fa fa-square-o"></i> <i class="fa fa-square-o"></i>
+#  <br/> <i style="color:red" class="fa fa-square-o"></i> <i class="fa fa-square"></i> <i class="fa fa-square-o"></i>

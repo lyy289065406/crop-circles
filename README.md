@@ -59,7 +59,7 @@ Github Profile 有一片 “草地” ，每天会从上到下、从左到右滚
 <br/>
 
 - 任意找一台 Linux 服务器（阿里云、腾讯云等）
-- 安装 python 2.7
+- 安装 python 3.8
 - 安装 GitPython 模块： `sudo pip install GitPython`
 - 安装 git 客户端
 - 在 Github Fork 这个仓库： [https://github.com/lyy289065406/crop-circles](https://github.com/lyy289065406/crop-circles)
@@ -69,7 +69,6 @@ Github Profile 有一片 “草地” ，每天会从上到下、从左到右滚
 - 若设置 SSH 后还要输入密码才能提交，则还需要把仓库的 https 协议改成 ssh，详见 [这里](https://help.github.com/en/articles/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
 - 修改 crontab 配置文件，设置定时任务： `crontab -e`
 - 设置定时任务命令（每小时）： `0 * * * * python /tmp/crop-circles/main.py -logo "YOUR-LOGO"`
-- 注意脚本位置需使用绝对路径，根据实际 checkout 的位置修改即可
 - 保存 crontab 配置文件后会自动生效，查看日志： `tail -10f /var/log/cron`
 
 </details>

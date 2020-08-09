@@ -45,7 +45,7 @@ Github Profile 有一片 “草地” ，每天会从上到下、从左到右滚
 - 创建 [GITHUB_TOKEN](https://github.com/settings/tokens) 用于 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 提交变更（需要的最小权限 `admin:repo_hook, repo`）
 - 启用 Settings --> Actions 功能
 
-> 程序默认每 20 分钟执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）
+> 程序默认每 20 分钟执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）；另 Github Actions 的 runner 与北京时间有 8 小时时差，而 Github Profile 是准时在北京时间 00:00 刷新的，因此实际每天可用时间只有 16 小时。
 
 ![Token](imgs/GITHUB_TOKEN.png)
 

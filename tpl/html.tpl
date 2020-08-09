@@ -26,11 +26,11 @@
       </tr>
       <tr>
        <td>LAST COMMIT DATE</td>
-       <td>%(last_commit_date)s</td>
+       <td><font color="#FF0000">%(last_commit_date)s</font></td>
       </tr>
       <tr>
        <td>LAST COMMIT</td>
-       <td>%(commit_cnt)i / %(commit_total)i</td>
+       <td><font color="#FF0000">%(commit_cnt)i</font> / %(commit_total)i</td>
       </tr>
       <tr>
        <td>CANVAS PREVIEW</td>

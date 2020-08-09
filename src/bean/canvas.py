@@ -126,7 +126,7 @@ class HtmlCanvas(Canvas) :
                 elif val.commit <= COMMIT_1 :
                     color = COLOR_1
                 else :
-                    color = COLOR_64
+                    color = COLOR_32
                 self.canvas[r][c] = '<i style="color:%s" class="fa fa-square"></i>' % color
 
         _canvas = []

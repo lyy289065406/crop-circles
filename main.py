@@ -9,7 +9,6 @@
 import sys
 from src.bean.archiver import *
 from src.bean.canvas import *
-from src.bean.commit import *
 from src.env.cfg import *
 from src.env.dot_matrix import *
 from src.utils import log
@@ -75,9 +74,9 @@ def draw(logo, auto_commit) :
         arch.save()
         arch.check_finish()
 
-    # 提交变更以累积性绘画      
+    # 提交变更以进行累积性绘画      
     if auto_commit :
-        git_commit(arch.savepath)
+        git_commit()
 
 
 

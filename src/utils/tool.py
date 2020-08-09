@@ -92,13 +92,12 @@ def get_systime() :
     return time.strftime("%Y-%m-%d %H:%M:%S", now)
 
 
-def git_commit(change_file) :
+def git_commit() :
     """
-    提交变更文件
-    :param change_file: 变更文件
+    提交所有变更文件
     """
     repo = git.Repo(PRJ_DIR)
-    repo.git.add(change_file)
+    repo.git.add('.')
     repo.git.commit(m='"[%s] %s"' % (get_systime(), uuid.uuid1()))
     repo.git.push()
 

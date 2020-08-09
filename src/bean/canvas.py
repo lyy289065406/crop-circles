@@ -7,20 +7,20 @@
 # -----------------------------------------------
 
 
+import time
 from src.bean.archiver import *
 from src.env.cfg import *
 from src.env.dot_matrix import *
 
 
-class LocalCanvas :
+class Canvas :
     '''
-    本地画布
+    画布
     '''
 
-    def __init__(self, logo, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, backgroup=WHITE, foreground=BLACK) :
+    def __init__(self, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, backgroup=WHITE, foreground=BLACK) :
         """
         初始化
-        :param logo: 期望绘制的 logo 字符串
         :param height: 画布高度
         :param width: 画布宽度
         :param backgroup: 画布背景色
@@ -31,7 +31,6 @@ class LocalCanvas :
         self.backgroup = backgroup
         self.foreground = foreground
         self.canvas = self._init()
-        self._draw(logo)
 
 
     def _init(self) :
@@ -40,12 +39,23 @@ class LocalCanvas :
         :return: 空画布
         """
         canvas = [ None ] * self.height
-        for h in range(self.height):  
+        for h in range(self.height) :  
             canvas[h] = [ self.backgroup ] * self.width
         return canvas
 
 
-    def _draw(self, logo):
+
+
+class LocalCanvas(Canvas) :
+    '''
+    本地画布
+    '''
+
+    def __init__(self, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, backgroup=WHITE, foreground=BLACK) :
+        Canvas.__init__(self, height, width, backgroup, foreground)
+
+
+    def draw(self, logo):
         """
         绘制 logo 到画布
         :param logo: 期望绘制的 logo 字符串
@@ -78,10 +88,76 @@ class LocalCanvas :
 
 
 
-class HtmlCanvas :
+class HtmlCanvas(Canvas) :
     '''
     HTML 画布
     '''
 
-    def __init__(self) :
-        pass
+    def __init__(self, archiver, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, backgroup=WHITE, foreground=BLACK) :
+        """
+        初始化
+        :param archiver: 存档记录
+        """
+        Canvas.__init__(self, height, width, backgroup, foreground)
+        self.arch = archiver
+        self.dps = self.arch.dps.copy()
+
+    
+    def _read_tpl(self) :
+        """
+        :return: HTML 模板
+        """
+        with open(HTML_TPL, 'r') as file :
+            tpl = file.read()
+        return tpl
+    
+
+    def _to_canvas(self) :
+        """
+        根据存档记录绘制 HTML 预览画布
+        :return: HTML 画布内容
+        """
+        today = self.arch._get_today_progress()
+        for c in range(self.width - 1, -1, -1) :
+            for r in range(self.height - 1, -1, -1) :
+                key, val = self.dps.popitem()
+                if today is not None and today.date == key :
+                    color = COLOR_TODAY
+                elif val.commit <= COMMIT_1 :
+                    color = COLOR_1
+                else :
+                    color = COLOR_32
+                self.canvas[r][c] = '<i style="color:%s" class="fa fa-square"></i>' % color
+
+        _canvas = []
+        for line in self.canvas :
+            _canvas.append(' '.join(line))
+        return '<br/> '.join(_canvas)
+                
+
+    def _to_html(self) :
+        """
+        构造 Giuhub HTML 页面
+        :return: HTML 页面内容
+        """
+        today = self.arch._get_today_progress()
+        tpl = self._read_tpl()
+        html = tpl % {
+            'datetime': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+            'logo': self.arch.logo,
+            'last_commit_date': today.date,
+            'commit_cnt': today.cnt,
+            'commit_total': today.commit,
+            'canvas': self._to_canvas()
+        }
+        return html
+
+    
+    def to_page(self) :
+        html = self._to_html()
+        with open(HTML_PATH, 'w+') as file :
+            file.write(html)
+
+
+
+

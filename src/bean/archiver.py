@@ -15,7 +15,6 @@ from src.utils.tool import *
 
 
 
-
 class Archiver :
     '''
     存档器
@@ -50,7 +49,7 @@ class Archiver :
                 point = canvas[row][col]
                 after_day = get_after_day(days)
                 after_date = date_to_str(after_day)
-                commit = (COMMIT_16 if point == BLACK else COMMIT_1)
+                commit = (COMMIT_32 if point == BLACK else COMMIT_1)
 
                 dp = DateProgress(after_date, 0, commit)
                 self.dps[after_date] = dp

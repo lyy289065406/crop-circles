@@ -10,6 +10,8 @@ import os
 PRJ_DIR = os.path.dirname(os.path.abspath(__file__)).replace(r'/src/env', '').replace(r'\src\env', '')
 CACHE_DIR = '%s/cache' % PRJ_DIR
 SAVE_PREFIX = 'save_'
+HTML_TPL = '%s/tpl/html.tpl' % PRJ_DIR
+HTML_PATH = '%s/docs/index.html' % PRJ_DIR
 CHARSET = 'utf-8'
 
 
@@ -22,8 +24,14 @@ DEFAULT_LOGO = 'EXP - GIT'
 
 
 # commit
-COMMIT_0 = 0        # 提交 0 次： 白色
-COMMIT_1 = 1        # 提交 [1, 16) 次： 浅绿色
-COMMIT_16 = 16      # 提交 [16, 32) 次： 翠绿
-COMMIT_32 = 32      # 提交 [32, 64) 次： 深绿
-COMMIT_64 = 64      # 提交 [64, +∞) 次： 墨绿
+COMMIT_0 = 0            # 提交 0 次： 白色
+COMMIT_1 = 1            # 提交 [1, 16) 次： 浅绿色
+COMMIT_16 = 16          # 提交 [16, 32) 次： 翠绿
+COMMIT_32 = 32          # 提交 [32, 64) 次： 深绿
+COMMIT_64 = 64          # 提交 [64, +∞) 次： 墨绿
+COLOR_TODAY = '#FF0000' # 今天： 红色
+COLOR_0 = '#FFFFFF'     # 提交 0 次： 白色
+COLOR_1 = '#9be9a8'     # 提交 [1, 16) 次： 浅绿色
+COLOR_16 = '#40c463'    # 提交 [16, 32) 次： 翠绿
+COLOR_32 = '#30a14e'    # 提交 [32, 64) 次： 深绿
+COLOR_64 = '#216e39'    # 提交 [64, +∞) 次： 墨绿

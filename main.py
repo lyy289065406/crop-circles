@@ -60,7 +60,8 @@ def draw(logo, auto_commit) :
     log.info('LOGO: %s' % logo)
 
     # 预览画布
-    lc = LocalCanvas(logo)
+    lc = LocalCanvas()
+    lc.draw(logo)
     log.info('Preview in Canvas: %s' % lc.to_str())
 
     # 获取画布绘制进度
@@ -73,6 +74,10 @@ def draw(logo, auto_commit) :
         arch.update_today()
         arch.save()
         arch.check_finish()
+
+    # 生成进度展示页面
+    hc = HtmlCanvas(arch)
+    hc.to_page()
 
     # 提交变更以进行累积性绘画      
     if auto_commit :

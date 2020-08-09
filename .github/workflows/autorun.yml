@@ -1,13 +1,14 @@
-name: Automatically planting
+name: Auto Draw Crop Circles
 on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
+  # workflow_dispatch:
+  #   branches:
+  #     - master
+  # 每 20 分钟执行一次
   schedule:
-    - cron:  '0 * * * *'
+    - cron:  '0/20 * * * *'
 
 
 jobs:
@@ -34,17 +35,20 @@ jobs:
       run: |
         python -m pip install -r requirements.txt
 
-    - name: draw
+    - name: draw crop circles
       run: |-
-        python main.py
+        python main.py -logo ${{ secrets.LOGO }}
 
-    # readme-bot 是 Github runner 的固定账号，不用改
-    - name: Commit and push Github page (if changed)
-      run: |-
-        git diff
-        git config --global user.email "readme-bot@example.com"
-        git config --global user.name "README-bot"
-        git add -A
-        git commit -m "Updated by Github Robot" || exit 0
-        git push
+    - name: commit and push
+      uses: lyy289065406/commit@v3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        email: ${{ secrets.GITHUB_EMAIL }}
+        name: ${{ secrets.GITHUB_NAME }}
+        push-branch: 'master'
+        commit-message: 'update progress'
+        force-add: 'true'
+        files: '.'
+        
+        
 

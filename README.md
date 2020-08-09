@@ -27,14 +27,14 @@ Github Profile 有一片绿色草地， 此脚本可以用一年时间在上面�
 - &lt; 32 次 ： 翠绿
 - &lt; 64 次 ： 深绿
 - &gt;= 64 次 ： 墨绿
-
-利用这个特征，通过 crontab 或 [Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 控制每天的提交次数，就可以实现全自动绘制麦田圈。
+C
+利用这个特征，通过 [Crontab](https://github.com/lyy289065406/cron-expression) 或 [Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 控制每天的提交次数，就可以实现全自动绘制麦田圈。
 
 
 ## 开发者部署
 
 <details>
-<summary><b>无服务器方式</b></summary>
+<summary><b>无服务器方式（推荐）</b></summary>
 <br/>
 
 本项目已配置 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需轻松两步即可实现部署：
@@ -48,7 +48,7 @@ Github Profile 有一片绿色草地， 此脚本可以用一年时间在上面�
 
 
 <details>
-<summary><b>有服务器方式（推荐）</b></summary>
+<summary><b>有服务器方式</b></summary>
 <br/>
 
 - 任意找一台 Linux 服务器（阿里云、腾讯云等）

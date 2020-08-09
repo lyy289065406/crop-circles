@@ -1,4 +1,3 @@
-<!-- RELEASE TIME : %(datetime)s -->
 <html lang="zh-cn">
 
  <head>
@@ -22,15 +21,15 @@
     <table id="draw" class="dataintable">
     <tbody>
       <tr>
-       <th width="15%%">LOGO</th>
-       <th width="85%%">%(logo)s</th>
+       <th width="20%%">LOGO</th>
+       <th width="80%%">%(logo)s</th>
       </tr>
       <tr>
-       <td>LAST COMMIT DATE</td>
-       <td><font color="#FF0000">%(last_commit_date)s</font></td>
+       <td>LAST COMMIT TIME</td>
+       <td><font color="#FF0000">%(datetime)s</font></td>
       </tr>
       <tr>
-       <td>LAST COMMIT</td>
+       <td>LAST COMMIT COUNT</td>
        <td><font color="#FF0000">%(commit_cnt)i</font> / %(commit_total)i</td>
       </tr>
       <tr>

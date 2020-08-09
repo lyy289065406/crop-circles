@@ -127,7 +127,7 @@ class HtmlCanvas(Canvas) :
                     color = COLOR_1
                 else :
                     color = COLOR_32
-                self.canvas[r][c] = '<i style="color:%s" class="tooltip fa fa-square"><span class="tooltiptext">%s</span></i>' % (color, key)
+                self.canvas[r][c] = '<i style="color:%s" class="tooltip fa fa-square"><span class="tooltiptext">%s:%i/%i</span></i>' % (color, key, val.cnt, val.commit)
 
         _canvas = []
         for line in self.canvas :
@@ -143,9 +143,8 @@ class HtmlCanvas(Canvas) :
         today = self.arch._get_today_progress()
         tpl = self._read_tpl()
         html = tpl % {
-            'datetime': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
             'logo': self.arch.logo,
-            'last_commit_date': today.date,
+            'datetime': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
             'commit_cnt': today.cnt,
             'commit_total': today.commit,
             'canvas': self._to_canvas()

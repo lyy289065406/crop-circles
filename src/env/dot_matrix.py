@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# @Author : EXP
+# @Time   : 2020/08/01 13:14
+# @File   : dot_matrix.py
+# -----------------------------------------------
+# LOGO 字符点阵图
+# -----------------------------------------------
 
 import collections
 

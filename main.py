@@ -7,27 +7,38 @@
 # -----------------------------------------------
 
 import sys
-from src.cfg.dot_matrix import *
+from src.bean.archiver import *
+from src.bean.canvas import *
+from src.env.cfg import *
+from src.env.dot_matrix import *
 from src.utils import log
-from src.utils import canvas
+from src.utils import tool
 
 
-CANVAS_WIDTH = 53
-CANVAS_HEIGHT = 7
-
-
-
-def main(help, view, logo, start_time) :
+def main(help, view, logo) :
     if help :
         log.info(help_info())
 
     elif view :
-        show()
+        log.info(ch_info())
 
     else :
-        logo_chs = to_chs(logo)
-        draw_in_local(logo_chs)
-        draw_in_github(logo_chs, start_time)
+        logo = tool.format(logo)
+        log.info('LOGO: %s' % logo)
+
+        lc = LocalCanvas(logo)
+        log.info('Preview in Canvas: %s' % lc.to_str())
+
+        arch = Archiver(logo)
+        if not arch.load() :            # 加载存档文件
+            arch.to_progress(lc.canvas) # 生成新的存档文件
+
+
+        # TODO 提交
+        draw_in_github(logo)
+
+        arch.update()
+        arch.save()
 
 
 
@@ -36,44 +47,24 @@ def help_info():
     -h                帮助信息
     -logo <string>    期望绘制的 LOGO 字符画， 要求总宽度 <= 53
                       （其中 A-Z 0-9 宽度为 7 ，标点符号宽度为 3）
-    -st               开始绘制的日期，格式为： yyyy-MM-dd
     -v                打印支持绘制的字符
 '''
 
 
 
-def show() :
-    for key, val in DICTS.items() :
-        log.info("character = '%s', width = %i" % (key, len(val[0])))
+def ch_info() :
+    """
+    :return: 返回支持绘制的字符及其宽度
+    """
+    infos = [ '' ]
+    for key, val in DOT_MATRIX.items() :
+        infos.append("character = '%s', width = %i" % (key, len(val[0])))
+    return '\n'.join(infos)
 
 
 
-def to_chs(logo) :
-    logo_chs = []
-    width = 0
-    chs = list(logo.upper())
-    for ch in chs :
-        dm = DOT_MATRIX.get(ch)
-        if dm :
-            if width + len(dm[0]) >= CANVAS_WIDTH :
-                continue
-            else :
-                logo_chs.append(ch)
-                width += len(dm[0])
-    return logo_chs
 
-
-
-def draw_in_local(logo_chs) :
-    log.info('LOGO: %s' % ''.join(logo_chs))
-    lc = canvas.LocalCanvas(CANVAS_HEIGHT, CANVAS_WIDTH)
-    lc.draw_canvas(logo_chs, DOT_MATRIX)
-    log.info('Show in Local:')
-    log.info(lc.canvas_to_str())
-
-
-
-def draw_in_github(logo_chs, start_time) :
+def draw_in_github(logo_chs) :
     pass
 
 
@@ -85,8 +76,7 @@ def draw_in_github(logo_chs, start_time) :
 def get_sys_args(sys_args) :
     help = False
     view = False
-    logo = 'EXP-REPO'
-    start_time = '1990-01-01'
+    logo = DEFAULT_LOGO
 
     idx = 1
     size = len(sys_args)
@@ -101,21 +91,15 @@ def get_sys_args(sys_args) :
             elif sys_args[idx] == '-logo' :
                 idx += 1
                 logo = sys_args[idx]
-
-            elif sys_args[idx] == '-st' :
-                idx += 1
-                logo = sys_args[idx]
         except :
             pass
         idx += 1
-    return help, view, logo, start_time
+    return help, view, logo
 
 
 
 if __name__ == '__main__':
     log.init()
     main(*get_sys_args(sys.argv))
-
-    print(get_next_weekday(calendar.MONDAY))
 
 

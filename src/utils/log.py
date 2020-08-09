@@ -9,7 +9,7 @@
 import traceback
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from src.cfg.env import PRJ_DIR
+from src.env.cfg import PRJ_DIR
 
 RUN_LOG = '%s/log/run.log' % PRJ_DIR
 ERR_LOG = '%s/log/err.log' % PRJ_DIR

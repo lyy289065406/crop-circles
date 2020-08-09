@@ -1,20 +1,26 @@
-# auto-planting
-> Github 自动种草脚本
+# crop-circles
+
+> Github 麦田圈
 
 ------
 
 ## 运行环境
 
-![](https://img.shields.io/badge/Python-2.7%2B-brightgreen.svg)
+![](https://img.shields.io/badge/Python-3.8%2B-brightgreen.svg)
 
 
 ## 脚本介绍
 
-　需结合 crontab 之类的定时任务命令使用。
+Github Profile 有一片绿色草地， 此脚本可以用一年时间在上面画一幅像素画：
 
-　利用定时任务，每天以一定频率定时提交内容到 Github 实现自动化养草。
+![草地](https://github.com/lyy289065406/auto-planting/blob/master/imgs/grassland.png)
 
-　草地颜色根据每天的提交次数呈现不同的绿色等级：
+
+## 实现原理
+
+该片 “草地” 从上到下、从左到右滚动绘制。
+
+其中每一列从周日开始，每一格的颜色根据当天的提交次数呈现不同的绿色深度：
 
 - 0 次 ： 灰色
 - &lt; 16 次 ： 浅绿
@@ -22,10 +28,7 @@
 - &lt; 64 次 ： 深绿
 - &gt;= 64 次 ： 墨绿
 
-![草地](https://github.com/lyy289065406/auto-planting/blob/master/imgs/grassland.png)
-
-> TODO： 用一年时间在 Github 上画一副像素画
-> README 显示绘制进度条: https://github.com/lyy289065406/anuraghazra, https://github.com/lyy289065406/gautamkrishnar/edit/master/README.md
+利用这个特征，通过 crontab 或 [Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 控制每天的提交次数，就可以实现全自动绘制麦田圈。
 
 
 ## 开发者部署
@@ -40,8 +43,6 @@
 - 启用 Settings --> Actions 功能
 
 > 尔后程序便会每小时执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）
-
-> TODO: Github Robot 的 commit 并不计入 commit 次数
 
 </details>
 

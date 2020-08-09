@@ -27,7 +27,7 @@ Github Profile 有一片 “草地” ，每天会从上到下、从左到右滚
 - &lt; 32 次 ： 翠绿
 - &lt; 64 次 ： 深绿
 - &gt;= 64 次 ： 墨绿
-C
+
 利用这个特征，通过 [Crontab](https://github.com/lyy289065406/cron-expression) 或 [Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 控制每天的提交次数，就可以实现全自动绘制麦田圈。
 
 

@@ -40,14 +40,15 @@ jobs:
         python main.py -logo ${{ secrets.LOGO }}
 
     - name: commit and push
-      uses: lyy289065406/commit@v3
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        email: ${{ secrets.GITHUB_EMAIL }}
-        name: ${{ secrets.GITHUB_ACTOR }}
-        push-branch: 'master'
-        commit-message: 'update progress'
-        force-add: 'true'
+      run: |-
+        git diff
+        git config --global user.email ${{ secrets.GITHUB_EMAIL }}
+        git config --global user.name ${{ secrets.GITHUB_ACTOR }}
+        git config --global github.token ${{ secrets.GITHUB_TOKEN }}
+        git add -A
+        git commit -m "Updated by Github Robot" || exit 0
+        git push
+
         
         
 

@@ -85,7 +85,7 @@ class Archiver :
 
     def check_finish(self) :
         """
-        检查是否已完成绘图（完成则删除存档文件）
+        检查是否已完成绘图（完成则删除存档文件，以便重头绘制）
         """
         cur_dp = self._get_today_progress()
         last_day = list(self.dps.keys())[-1]

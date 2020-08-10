@@ -48,7 +48,6 @@ jobs:
         push-branch: 'master'
         commit-message: 'update progress'
         force-add: 'true'
-        files: '.'
         
         
 

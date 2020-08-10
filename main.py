@@ -76,9 +76,9 @@ def draw(logo, auto_commit) :
         arch.save()
         arch.check_finish()
 
-    # 生成进度展示页面
-    hc = HtmlCanvas(arch)
-    hc.to_page()
+        # 生成进度展示页面
+        hc = HtmlCanvas(arch)
+        hc.to_page()
 
     # 提交变更以进行累积性绘画      
     if auto_commit :

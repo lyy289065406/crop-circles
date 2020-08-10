@@ -42,8 +42,8 @@ jobs:
     - name: commit and push
       run: |-
         git diff
-        git config --global user.email 289065406@qq.com
-        git config --global user.name lyy289065406
+        git config --global user.email ${{ secrets.GIT_EMAIL }}
+        git config --global user.name ${{ secrets.GIT_USER }}
         git config --global github.token ${{ secrets.GITHUB_TOKEN }}
         git add -A
         git commit -m "Updated by Github Robot" || exit 0

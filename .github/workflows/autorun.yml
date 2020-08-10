@@ -42,7 +42,7 @@ jobs:
     - name: commit and push
       run: |-
         git diff
-        git config --global user.email 289065406@qq.commit
+        git config --global user.email 289065406@qq.com
         git config --global user.name lyy289065406
         git config --global github.token ${{ secrets.GITHUB_TOKEN }}
         git add -A

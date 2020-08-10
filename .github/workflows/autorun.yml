@@ -8,7 +8,7 @@ on:
   #     - master
   # 每 20 分钟执行一次
   schedule:
-    - cron:  '0/20 * * * *'
+    - cron:  '0/5 * * * *'
 
 
 jobs:
@@ -42,8 +42,8 @@ jobs:
     - name: commit and push
       run: |-
         git diff
-        git config --global user.email ${{ secrets.GITHUB_EMAIL }}
-        git config --global user.name ${{ secrets.GITHUB_ACTOR }}
+        git config --global user.email 289065406@qq.commit
+        git config --global user.name lyy289065406
         git config --global github.token ${{ secrets.GITHUB_TOKEN }}
         git add -A
         git commit -m "Updated by Github Robot" || exit 0

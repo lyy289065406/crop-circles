@@ -40,8 +40,11 @@ Github Profile 有一片 “草地” ，每天会从上到下、从左到右滚
 本项目已配置 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow)，因此你只需轻松几步即可实现部署：
 
 - [Fork 本项目](https://github.com/lyy289065406/crop-circles) 到你的代码仓库
-- 通过 Settings --> Secrets 添加环境变量 `LOGO`： 期望绘制到 Github Profile 的字符串，如 `EXP-REPO`
-- 创建 [GITHUB_TOKEN](https://github.com/settings/tokens) （若已有则不需要重复创建）：用于 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 提交变更（最小权限要求为 `admin:repo_hook, repo`）
+- 通过 Settings --> Secrets 配置 3 个环境变量：
+<br/>　　`LOGO`： 期望绘制到 Github Profile 的字符串，如 `EXP-REPO`
+<br/>　　`GIT_USER`： Github 用户名
+<br/>　　`GIT_EMAIL`： Github 邮箱（与 owner 一致才能确保 commit 有效，否则 commit 不会被记录，也就无法实现绘画）
+- 创建 [GITHUB_TOKEN](https://github.com/settings/tokens) （若已有则不需要重复创建）：用于 [Github Actions](https://docs.github.com/cn/actions/configuring-and-managing-workflows/configuring-a-workflow) 登录并提交变更（最小权限要求为 `admin:repo_hook, repo`）
 - 启用 Settings --> Actions 功能
 
 > 程序默认每 20 分钟执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）；另 Github Actions 的 runner 与北京时间有 8 小时时差，而 Github Profile 是准时在北京时间 00:00 刷新的，因此实际每天可用时间只有 16 小时。

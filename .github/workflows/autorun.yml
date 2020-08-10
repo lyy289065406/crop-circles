@@ -8,7 +8,7 @@ on:
   #     - master
   # 每 20 分钟执行一次
   schedule:
-    - cron:  '0/5 * * * *'
+    - cron:  '0/20 * * * *'
 
 
 jobs:
@@ -39,14 +39,16 @@ jobs:
       run: |-
         python main.py -logo ${{ secrets.LOGO }}
 
+    # 为了使得 commit 会被有效记录到 Github Profile
+    # GIT_USER、GIT_EMAIL 必须是仓库 owner 的正确信息
     - name: commit and push
       run: |-
         git diff
-        git config --global user.email ${{ secrets.GIT_EMAIL }}
         git config --global user.name ${{ secrets.GIT_USER }}
+        git config --global user.email ${{ secrets.GIT_EMAIL }}
         git config --global github.token ${{ secrets.GITHUB_TOKEN }}
         git add -A
-        git commit -m "Updated by Github Robot" || exit 0
+        git commit -m "Updated by Github Bot" || exit 0
         git push
 
         

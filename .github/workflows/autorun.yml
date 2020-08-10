@@ -44,7 +44,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         email: ${{ secrets.GITHUB_EMAIL }}
-        name: ${{ secrets.GITHUB_NAME }}
+        name: ${{ secrets.GITHUB_ACTOR }}
         push-branch: 'master'
         commit-message: 'update progress'
         force-add: 'true'

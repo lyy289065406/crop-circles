@@ -49,6 +49,8 @@ Github Profile 有一片 “草地” ，每天会从上到下、从左到右滚
 
 > 程序默认每 20 分钟执行一次（若要调整执行频率，可修改 [`autorun.yml`](.github/workflows/autorun.yml) 的 `schedule` 触发时点）；另 Github Actions 的 runner 与北京时间有 8 小时时差，而 Github Profile 是准时在北京时间 00:00 刷新的，因此实际每天可用时间只有 16 小时。
 
+![Secrets](imgs/secrets.png)
+
 ![Token](imgs/GITHUB_TOKEN.png)
 
 > `GITHUB_TOKEN` 是所有仓库通用的环境变量，只需生成一次，详细可参看 [官方教程](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)

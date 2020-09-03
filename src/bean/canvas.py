@@ -8,9 +8,9 @@
 
 
 import time
-from src.bean.archiver import *
-from src.env.cfg import *
-from src.env.dot_matrix import *
+from ..bean.archiver import *
+from ..env.cfg import *
+from ..env.dot_matrix import *
 
 
 class Canvas :
@@ -126,7 +126,7 @@ class HtmlCanvas(Canvas) :
                 elif val.commit <= COMMIT_1 :
                     color = COLOR_1
                 else :
-                    color = COLOR_32
+                    color = COLOR_64
                 self.canvas[r][c] = '<i style="color:%s" class="tooltip fa fa-square"><span class="tooltiptext">%s:%i/%i</span></i>' % (color, key, val.cnt, val.commit)
 
         _canvas = []

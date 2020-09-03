@@ -8,8 +8,13 @@
 # -----------------------------------------------
 
 import os
-
-PRJ_DIR = os.path.dirname(os.path.abspath(__file__)).replace(r'/src/env', '').replace(r'\src\env', '')
+PRJ_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
+)
 CACHE_DIR = '%s/cache' % PRJ_DIR
 SAVE_PREFIX = 'save_'
 HTML_TPL = '%s/tpl/html.tpl' % PRJ_DIR

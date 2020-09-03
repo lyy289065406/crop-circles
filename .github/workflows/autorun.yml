@@ -6,9 +6,9 @@ on:
   # workflow_dispatch:
   #   branches:
   #     - master
-  # 每 20 分钟执行一次
+  # 每 12 分钟执行一次
   schedule:
-    - cron:  '0/20 * * * *'
+    - cron:  '0/12 * * * *'
 
 
 jobs:

@@ -14,8 +14,8 @@ import datetime
 import time
 import hashlib
 
-from src.env.cfg import *
-from src.env.dot_matrix import *
+from ..env.cfg import *
+from ..env.dot_matrix import *
 
 
 

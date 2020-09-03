@@ -10,8 +10,8 @@ import os
 import re
 import datetime
 import collections
-from src.env.cfg import *
-from src.utils.tool import *
+from ..env.cfg import *
+from ..utils.tool import *
 
 
 
@@ -49,7 +49,7 @@ class Archiver :
                 point = canvas[row][col]
                 after_day = get_after_day(days)
                 after_date = date_to_str(after_day)
-                commit = (COMMIT_32 if point == BLACK else COMMIT_1)
+                commit = (COMMIT_64 if point == BLACK else COMMIT_1)
 
                 dp = DateProgress(after_date, 0, commit)
                 self.dps[after_date] = dp
@@ -62,7 +62,11 @@ class Archiver :
         :return: 是否需要执行 commit
         """
         sdate = date_to_str(datetime.date.today())
-        return self.dps[sdate]
+        try :
+            dp = self.dps[sdate]
+        except :
+            dp = None
+        return dp
 
 
     def check_today(self) :

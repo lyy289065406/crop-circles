@@ -75,7 +75,9 @@ class Archiver :
         :return: 是否需要执行 commit
         """
         dp = self._get_today_progress()
-        return dp is not None and (dp.cnt < dp.commit)
+        cur_day = str_to_date(dp.date)
+        first_day = str_to_date(list(self.dps.keys())[0])
+        return (cur_day >= first_day) and (dp.cnt < dp.commit)
 
 
     def update_today(self) :
@@ -91,9 +93,10 @@ class Archiver :
         """
         检查是否已完成绘图（完成则删除存档文件，以便重头绘制）
         """
-        cur_day = str_to_date(self._get_today_progress().date)
+        dp = self._get_today_progress()
+        cur_day = str_to_date(dp.date)
         last_day = str_to_date(list(self.dps.keys())[-1])
-        if cur_day > last_day :
+        if (cur_day >= last_day) and (dp.cnt >= dp.commit) :
             os.remove(self.savepath)
 
 

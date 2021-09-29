@@ -80,9 +80,20 @@ def get_after_day(after_days=0) :
 
 def date_to_str(date) :
     """
+    :param date: 日期
     :return: 格式化日期
     """
     return date.strftime('%Y%m%d')
+
+
+
+def str_to_date(str) :
+    """
+    :param str: 格式化日期
+    :return: 日期
+    """
+    return datetime.datetime.strptime(str, '%Y%m%d')
+
 
 
 def get_systime() :

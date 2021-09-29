@@ -65,7 +65,7 @@ class Archiver :
         try :
             dp = self.dps[sdate]
         except :
-            dp = None
+            dp = DateProgress(sdate)
         return dp
 
 
@@ -91,9 +91,9 @@ class Archiver :
         """
         检查是否已完成绘图（完成则删除存档文件，以便重头绘制）
         """
-        cur_dp = self._get_today_progress()
-        last_day = list(self.dps.keys())[-1]
-        if cur_dp is not None and (cur_dp.date == last_day) and (cur_dp.cnt >= cur_dp.commit) :
+        cur_day = str_to_date(self._get_today_progress().date)
+        last_day = str_to_date(list(self.dps.keys())[-1])
+        if cur_day > last_day :
             os.remove(self.savepath)
 
 

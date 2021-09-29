@@ -74,7 +74,6 @@ def draw(logo, auto_commit) :
     if arch.check_today() :
         log.info('Update Progress')
         arch.update_today()
-        arch.check_finish()         # 检查是否全部绘制完成
 
         # 生成进度展示页面
         hc = HtmlCanvas(arch)
@@ -82,11 +81,14 @@ def draw(logo, auto_commit) :
     else :
         log.info('Today Finish')
 
-    arch.save()
+    arch.save()                 # 保存进度
+    arch.check_finish()         # 检查是否全部绘制完成
 
     # 提交变更以进行累积性绘画      
     if auto_commit :
         git_commit()
+
+        
 
 
 

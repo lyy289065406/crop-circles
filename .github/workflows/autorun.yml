@@ -37,7 +37,7 @@ jobs:
 
     - name: draw crop circles
       run: |-
-        python main.py -logo ${{ secrets.LOGO }}
+        python main.py -logo "${{ secrets.LOGO }}"
 
     # 为了使得 commit 会被有效记录到 Github Profile
     # GIT_USER、GIT_EMAIL 必须是仓库 owner 的正确信息

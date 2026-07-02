@@ -13,6 +13,7 @@ import calendar
 import datetime
 import time
 import hashlib
+import subprocess
 
 from ..env.cfg import *
 from ..env.dot_matrix import *
@@ -104,12 +105,45 @@ def get_systime() :
     return time.strftime("%Y-%m-%d %H:%M:%S", now)
 
 
-def git_commit() :
+def git_commit(count=1) :
     """
-    提交所有变更文件
+    一次性提交多个 commit（主 commit 含存档文件，其余为空 commit）
+    :param count: 需要产生的 commit 次数（>= 1）
     """
     repo = git.Repo(PRJ_DIR)
     repo.git.add('.')
+    # 除了主 commit 之外的额外空 commit，仅用于在 GitHub 贡献图表上累积颜色深度
+    for _ in range(count - 1):
+        repo.git.commit(m='"[bot] %s"' % uuid.uuid1(), allow_empty=True)
     repo.git.commit(m='"[%s] %s"' % (get_systime(), uuid.uuid1()))
     repo.git.push()
+
+
+def count_today_commits(username=None, token=None) :
+    """
+    通过 GitHub Search API 统计该用户今天在全站所有仓库的 commit 总数
+    （需要 PAT 才有跨仓库搜索权限）。失败时回退到仅统计本仓库。
+    :param username: GitHub 用户名
+    :param token: Personal Access Token（非 Actions 自带的 GITHUB_TOKEN）
+    """
+    today = datetime.date.today().strftime('%Y-%m-%d')
+    if username and token :
+        try:
+            result = subprocess.run([
+                'gh', 'api',
+                '-H', 'Accept: application/vnd.github+json',
+                '-H', 'Authorization: token %s' % token,
+                'search/commits?q=author:%s+author-date:%s&per_page=1' % (username, today),
+                '--jq', '.total_count'
+            ], capture_output=True, text=True, timeout=15)
+            if result.returncode == 0 and result.stdout.strip().isdigit():
+                return int(result.stdout.strip())
+        except:
+            pass
+    repo = git.Repo(PRJ_DIR)
+    try:
+        log = repo.git.log('--since=%sT00:00:00Z' % today, '--oneline')
+        return len(log.strip().split('\n')) if log.strip() else 0
+    except:
+        return 0
 

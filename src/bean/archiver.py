@@ -80,13 +80,15 @@ class Archiver :
         return (cur_day >= first_day) and (dp.cnt < dp.commit)
 
 
-    def update_today(self) :
+    def complete_today(self, already_committed=0) :
         """
-        更新今天的 commit 进度
+        一次性完成今天的全部 commit（扣除白天已有提交），返回还需执行的次数
+        :param already_committed: 今天已存在的 commit 数（用于避免重复）
         """
         dp = self._get_today_progress()
-        if dp is not None :
-            dp.update()
+        remain = max(0, dp.commit - dp.cnt - already_committed)
+        dp.cnt += remain
+        return remain
 
 
     def check_finish(self) :

@@ -8,6 +8,7 @@
 # -----------------------------------------------
 
 import sys
+import os
 from src.bean.archiver import *
 from src.bean.canvas import *
 from src.env.cfg import *
@@ -56,37 +57,35 @@ def draw(logo, auto_commit) :
     :param logo: 合法的 logo 字符串
     :param auto_commit: 自动提交到 Github
     """
-    # 格式化 logo
     logo = tool.format(logo)
     log.info('LOGO: %s' % logo)
 
-    # 预览画布
     lc = LocalCanvas()
     lc.draw(logo)
     log.info('Preview in Canvas: %s' % lc.to_str())
 
-    # 获取画布绘制进度
     arch = Archiver(logo)
-    if not arch.load() :            # 加载存档文件
-        arch.to_progress(lc.canvas) # 生成新的存档文件
+    if not arch.load() :
+        arch.to_progress(lc.canvas)
 
-    # 更新今天的进度
     if arch.check_today() :
         log.info('Update Progress')
-        arch.update_today()
+        real_commits = tool.count_today_commits(
+            os.environ.get('GIT_USER'),
+            os.environ.get('_GITHUB_TOKEN')
+        )
+        count = arch.complete_today(real_commits)
+        log.info('Already committed: %i, need: %i' % (real_commits, count))
 
-        # 生成进度展示页面
         hc = HtmlCanvas(arch)
         hc.to_page()
+        arch.save()
+        arch.check_finish()
+
+        if auto_commit :
+            git_commit(count)              # 一次 push 完成 N 个 commit
     else :
         log.info('Today Finish')
-
-    arch.save()                 # 保存进度
-    arch.check_finish()         # 检查是否全部绘制完成
-
-    # 提交变更以进行累积性绘画      
-    if auto_commit :
-        git_commit()
 
         
 

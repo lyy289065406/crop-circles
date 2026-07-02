@@ -114,8 +114,8 @@ def git_commit(count=1) :
     repo.git.add('.')
     # 除了主 commit 之外的额外空 commit，仅用于在 GitHub 贡献图表上累积颜色深度
     for _ in range(count - 1):
-        repo.git.commit(m='"[bot] %s"' % uuid.uuid1(), allow_empty=True)
-    repo.git.commit(m='"[%s] %s"' % (get_systime(), uuid.uuid1()))
+        repo.git.commit(m=f'"[bot] {uuid.uuid1()}"', allow_empty=True)
+    repo.git.commit(m=f'"[{get_systime()}] {uuid.uuid1()}"')
     repo.git.push()
 
 
@@ -132,8 +132,8 @@ def count_today_commits(username=None, token=None) :
             result = subprocess.run([
                 'gh', 'api',
                 '-H', 'Accept: application/vnd.github+json',
-                '-H', 'Authorization: token %s' % token,
-                'search/commits?q=author:%s+author-date:%s&per_page=1' % (username, today),
+                '-H', f'Authorization: token {token}',
+                f'search/commits?q=author:{username}+author-date:{today}&per_page=1',
                 '--jq', '.total_count'
             ], capture_output=True, text=True, timeout=15)
             if result.returncode == 0 and result.stdout.strip().isdigit():
@@ -142,7 +142,7 @@ def count_today_commits(username=None, token=None) :
             pass
     repo = git.Repo(PRJ_DIR)
     try:
-        log = repo.git.log('--since=%sT00:00:00Z' % today, '--oneline')
+        log = repo.git.log(f'--since={today}T00:00:00Z', '--oneline')
         return len(log.strip().split('\n')) if log.strip() else 0
     except:
         return 0

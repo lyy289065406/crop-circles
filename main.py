@@ -46,7 +46,7 @@ def ch_info() :
     """
     infos = [ '' ]
     for key, val in DOT_MATRIX.items() :
-        infos.append("character = '%s', width = %i" % (key, len(val[0])))
+        infos.append(f"character = '{key}', width = {len(val[0])}")
     return '\n'.join(infos)
 
 
@@ -58,11 +58,11 @@ def draw(logo, auto_commit) :
     :param auto_commit: 自动提交到 Github
     """
     logo = tool.format(logo)
-    log.info('LOGO: %s' % logo)
+    log.info(f'LOGO: {logo}')
 
     lc = LocalCanvas()
     lc.draw(logo)
-    log.info('Preview in Canvas: %s' % lc.to_str())
+    log.info(f'Preview in Canvas: {lc.to_str()}')
 
     arch = Archiver(logo)
     if not arch.load() :
@@ -75,7 +75,7 @@ def draw(logo, auto_commit) :
             os.environ.get('_GITHUB_TOKEN')
         )
         count = arch.complete_today(real_commits)
-        log.info('Already committed: %i, need: %i' % (real_commits, count))
+        log.info(f'Already committed: {real_commits}, need: {count}')
 
         hc = HtmlCanvas(arch)
         hc.to_page()

@@ -9,7 +9,6 @@
 import os
 import re
 import datetime
-import collections
 from ..env.cfg import *
 from ..utils.tool import *
 
@@ -27,7 +26,7 @@ class Archiver :
         """
         self.logo = logo
         self.savepath = self._to_savepath(logo)
-        self.dps = collections.OrderedDict()
+        self.dps = {}
 
 
     def _to_savepath(self, logo) :
@@ -36,7 +35,7 @@ class Archiver :
         :param logo: 合法的 logo 字符串
         """
         md5 = to_md5(logo)
-        return '%s/%s%s' % (CACHE_DIR, SAVE_PREFIX, md5)
+        return f'{CACHE_DIR}/{SAVE_PREFIX}{md5}'
 
 
     def to_progress(self, canvas) :
@@ -76,7 +75,7 @@ class Archiver :
         """
         dp = self._get_today_progress()
         cur_day = str_to_date(dp.date)
-        first_day = str_to_date(list(self.dps.keys())[0])
+        first_day = str_to_date(next(iter(self.dps)))
         return (cur_day >= first_day) and (dp.cnt < dp.commit)
 
 
@@ -97,7 +96,7 @@ class Archiver :
         """
         dp = self._get_today_progress()
         cur_day = str_to_date(dp.date)
-        last_day = str_to_date(list(self.dps.keys())[-1])
+        last_day = str_to_date(next(reversed(self.dps)))
         if (cur_day >= last_day) and (dp.cnt >= dp.commit) :
             os.remove(self.savepath)
 
@@ -125,8 +124,8 @@ class Archiver :
             with open(self.savepath, 'r') as file :
                 lines = file.readlines()
                 for line in lines :
-                    args = re.split('=|/', line)
-                    dp = DateProgress(*args)
+                    date, cnt, commit = re.split(r'[=/]', line.strip())
+                    dp = DateProgress(date, int(cnt), int(commit))
                     self.dps[dp.date] = dp
         self._del()
         return is_exist
@@ -139,7 +138,7 @@ class Archiver :
         filenames = os.listdir(CACHE_DIR)
         for filename in filenames :
             if filename.startswith(SAVE_PREFIX) and not self.savepath.endswith(filename) :
-                os.remove('%s/%s' % (CACHE_DIR, filename))
+                os.remove(f'{CACHE_DIR}/{filename}')
 
 
 
@@ -165,7 +164,7 @@ class DateProgress :
 
 
     def to_str(self) :
-        return '%s=%i/%i' % (self.date, self.cnt, self.commit)
+        return f'{self.date}={self.cnt}/{self.commit}'
 
 
     def __repr__(self):

@@ -52,7 +52,7 @@ class LocalCanvas(Canvas) :
     '''
 
     def __init__(self, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, backgroup=WHITE, foreground=BLACK) :
-        Canvas.__init__(self, height, width, backgroup, foreground)
+        super().__init__(height, width, backgroup, foreground)
 
 
     def draw(self, logo):
@@ -98,7 +98,7 @@ class HtmlCanvas(Canvas) :
         初始化
         :param archiver: 存档记录
         """
-        Canvas.__init__(self, height, width, backgroup, foreground)
+        super().__init__(height, width, backgroup, foreground)
         self.arch = archiver
         self.dps = self.arch.dps.copy()
 
@@ -127,7 +127,7 @@ class HtmlCanvas(Canvas) :
                     color = COLOR_1
                 else :
                     color = COLOR_64
-                self.canvas[r][c] = '<i style="color:%s" class="tooltip fa fa-square"><span class="tooltiptext">%s:%i/%i</span></i>' % (color, key, val.cnt, val.commit)
+                self.canvas[r][c] = f'<i style="color:{color}" class="tooltip fa fa-square"><span class="tooltiptext">{key}:{val.cnt}/{val.commit}</span></i>'
 
         _canvas = []
         for line in self.canvas :

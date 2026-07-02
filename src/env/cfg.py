@@ -15,10 +15,10 @@ PRJ_DIR = os.path.dirname(
         )
     )
 )
-CACHE_DIR = '%s/cache' % PRJ_DIR
+CACHE_DIR = f'{PRJ_DIR}/cache'
 SAVE_PREFIX = 'save_'
-HTML_TPL = '%s/tpl/html.tpl' % PRJ_DIR
-HTML_PATH = '%s/docs/index.html' % PRJ_DIR
+HTML_TPL = f'{PRJ_DIR}/tpl/html.tpl'
+HTML_PATH = f'{PRJ_DIR}/docs/index.html'
 CHARSET = 'utf-8'
 
 

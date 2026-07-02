@@ -12,8 +12,8 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from ..env.cfg import PRJ_DIR
 
-RUN_LOG = '%s/log/run.log' % PRJ_DIR
-ERR_LOG = '%s/log/err.log' % PRJ_DIR
+RUN_LOG = f'{PRJ_DIR}/log/run.log'
+ERR_LOG = f'{PRJ_DIR}/log/err.log'
 
 
 def init(runlog = RUN_LOG, errlog = ERR_LOG):

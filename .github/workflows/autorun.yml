@@ -3,6 +3,7 @@ on:
   schedule:
     # 每天 23:45 UTC（北京时间次日 07:45），一次完成当天全部 commit
     - cron: '45 23 * * *'
+  workflow_dispatch:
 
 
 jobs:

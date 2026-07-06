@@ -115,7 +115,7 @@ def git_commit(count=1) :
     # 除了主 commit 之外的额外空 commit，仅用于在 GitHub 贡献图表上累积颜色深度
     for _ in range(count - 1):
         repo.git.commit(m=f'"[bot] {uuid.uuid1()}"', allow_empty=True)
-    repo.git.commit(m=f'"[{get_systime()}] {uuid.uuid1()}"')
+    repo.git.commit(m=f'"[{get_systime()}] {uuid.uuid1()}"', allow_empty=True)
     repo.git.push()
 
 
